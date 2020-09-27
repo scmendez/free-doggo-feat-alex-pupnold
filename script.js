@@ -1,6 +1,8 @@
 //belayedAlex: https://www.pinterest.com/pin/66991113186037469/
 //elCap: https://www.yosemitehikes.com/images/wallpaper/yosemitehikes.com-el-cap-west-1920x1200.jpg
 //blueSky: https://i.ytimg.com/vi/0LcLB_JhjxQ/maxresdefault.jpg
+//elCapAndTrees: https://wallpapersafari.com/w/REoUqL
+//sky2: https://www.decorpad.com/bookmark.htm?bookmarkId=67944
 
 //canvas + DOM
 let canvas = document.querySelector('canvas');
@@ -16,18 +18,19 @@ let score = 0;
 
 //variables - drawSky
 let skyBackgroundImg = new Image();
-skyBackgroundImg.src = 'images/skyBackground.jpg';
+skyBackgroundImg.src = 'images/sky2.png';
 let skyY = -skyBackgroundImg.height + canvas.height;
 
 //variables  drawTheCap
 let theCapImg = new Image();
-theCapImg.src = 'images/theCapWall.png';
+theCapImg.src = 'images/elCap2Narrow.jpg';
 let theCapShape = {
     bottomLeftX: 100,
     topLeftX: 150,
     topRightX: 550,
     bottomRightX: 600,
 }
+let theCapY = -theCapImg.height + canvas.height;
 
 //variables - alexPupnold
 let alexPupnoldImg = new Image();
@@ -79,31 +82,28 @@ document.addEventListener('keyup', (event) => {
 const drawSky = () => {
     ctx.drawImage(skyBackgroundImg, 0, skyY, canvas.width, skyBackgroundImg.height)
 
-    skyY += .05;
+    skyY += .04;
 }
 
 const drawTheCap = () => {
-    let theCapImgPattern = ctx.createPattern(theCapImg, 'repeat');
-
+    ctx.save();
     ctx.beginPath();
     ctx.moveTo(theCapShape.bottomLeftX, 500);
     ctx.lineTo(theCapShape.topLeftX, 0);
     ctx.lineTo(theCapShape.topRightX, 0);
     ctx.lineTo(theCapShape.bottomRightX, 500);
     ctx.lineTo(theCapShape.bottomLeftX, 500);
-
-    ctx.strokeStyle = '#999592';
-    ctx.stroke();
-
-    ctx.fillStyle = theCapImgPattern;
-    ctx.fill();
-
     ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(theCapImg, 0, theCapY)
+    ctx.restore();
 
-    theCapShape.bottomLeftX += .05;
-    theCapShape.topLeftX += .05;
-    theCapShape.topRightX -= .05;
-    theCapShape.bottomRightX -= .05;
+    theCapShape.bottomLeftX += .01;
+    theCapShape.topLeftX += .01;
+    theCapShape.topRightX -= .01;
+    theCapShape.bottomRightX -= .01;
+
+    theCapY += .07
 }
 
 const drawAlexPupnold = () => {
