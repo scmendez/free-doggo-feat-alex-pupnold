@@ -45,18 +45,29 @@ let alexPupnoldXIncrement = 1.5;
 let isRightArrow = false;
 let isLeftArrow = false;
 
-
+//variables - obstacles
+let obstaclesArray = [{
+    x: 250,
+    y: 0,
+    radius: 10,
+}]
 
 //classes
-class drawObstacles {
-    constructor(img, x, y) {
-        this.img = img;
+class ObstacleClass {
+    constructor(x, y, r, color) {
+        //this.img = img;
         this.x = x;
-        this.y = y
+        this.y = y;
+        this.r = r;
+        this.color = color || 'white';
     }
-    // draw() {
-
-    // }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
+    }
 }
 
 
@@ -127,6 +138,22 @@ const checkRockBoundaries = () => {
     }
 }
 
+const drawObstacle = () => {
+    for (let i = 0; i < obstaclesArray.length; i++) {
+        let obstacle = new ObstacleClass(obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].radius)
+        obstacle.draw()
+        obstaclesArray[i].y++
+
+        if (obstaclesArray[i].y == 150) {
+            obstaclesArray.push({
+                x: theCapShape.topLeftX + Math.floor((theCapShape.topRightX - theCapShape.topLeftX) * Math.random()),
+                y: -10,
+                radius: 10,
+            })
+        }
+    }
+}
+
 const startGame = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -135,6 +162,7 @@ const startGame = () => {
     drawAlexPupnold();
     moveAlexPupnold();
     checkRockBoundaries();
+    drawObstacle();
     //update score
     //draw obstacles
 }
