@@ -55,20 +55,23 @@ let obstaclesArray = [{
 }];
 
 //splash screen
+let mainDOM;
+let canvasDOM;
+
 let startBtn = document.querySelector('#startButton')
 startBtn.addEventListener('click', () => {
-    startCanvas();
+    startGameSetup();
 });
 
 //splash screen to game screen
-const startCanvas = () => {
-    let mainDOM = document.querySelector('#mainContainer');
+const startGameSetup = () => {
+    mainDOM = document.querySelector('#mainContainer');
 
     let splashScreenDOM = document.querySelector('#splashScreen');
 
     mainDOM.removeChild(splashScreenDOM);
 
-    let canvasDOM = document.createElement('div');
+    canvasDOM = document.createElement('div');
     canvasDOM.innerHTML = `<canvas width = "700" height = "500"> </canvas>`
 
     mainDOM.appendChild(canvasDOM);
@@ -79,6 +82,25 @@ const startCanvas = () => {
     intervalId = setInterval(() => {
         requestAnimationFrame(startGame)
     }, 10)
+}
+
+//game screen to game over loss screen
+const gameOverLoss = () => {
+    clearInterval(intervalId);
+    mainDOM.removeChild(canvasDOM);
+
+    let gameOverLossDOM = document.createElement('div');
+    gameOverLossDOM.innerHTML = `<p>Oh no!</p>`
+
+    mainDOM.appendChild(gameOverLossDOM);
+}
+
+//game screen to game over win screen
+const gameOverWin = () => {
+    clearInterval(intervalId);
+
+    ctx.font = '30px Arial';
+    ctx.fillText('YOU DID IT!', 300, 200);
 }
 
 //event listeners
@@ -136,7 +158,7 @@ const drawTheCap = () => {
 const drawAlexPupnold = () => {
     ctx.drawImage(alexPupnoldImg, alexPupnold.x, alexPupnold.y, alexPupnold.width, alexPupnold.height)
     if (alexPupnold.y + alexPupnold.height < theCapY) {
-        clearInterval(intervalId);
+        gameOverWin();
     }
 }
 
@@ -152,8 +174,7 @@ const moveAlexPupnold = () => {
 
 const checkRockBoundaries = () => {
     if (alexPupnold.x <= theCapShape.bottomLeftX - 35 || ((alexPupnold.x + alexPupnold.width) >= theCapShape.bottomRightX + 35)) {
-        clearInterval(intervalId);
-        alert('oh no, you fell!')
+        gameOverLoss();
     }
 }
 
@@ -169,7 +190,6 @@ const drawObstacle = () => {
                 y: -10,
                 width: graniteRockWidth,
                 height: graniteRockHeight
-
             })
         }
     }
@@ -178,8 +198,7 @@ const drawObstacle = () => {
 const checkObstacleCollision = () => {
     for (let i = 0; i < obstaclesArray.length; i++) {
         if ((alexPupnold.x < obstaclesArray[i].x + obstaclesArray[i].width / 2) && (alexPupnold.x + alexPupnold.width > obstaclesArray[i].x) && (alexPupnold.y < obstaclesArray[i].y + obstaclesArray[i].height / 2) && (alexPupnold.y + alexPupnold.height / 2 > obstaclesArray[i].y)) {
-            clearInterval(intervalId);
-            alert('oh no, you were hit and fell!')
+            gameOverLoss();
         }
     }
 }
