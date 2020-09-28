@@ -126,12 +126,19 @@ const drawTheCap = () => {
     theCapShape.topRightX -= .01;
     theCapShape.bottomRightX -= .01;
 
-    theCapY += .07;
+    theCapY += 1;
     score += .1;
+
+    if (theCapShape.topLeftX == 325 && theCapShape.topRightX == 375) {
+        ctx.closePath();
+    }
 }
 
 const drawAlexPupnold = () => {
     ctx.drawImage(alexPupnoldImg, alexPupnoldX, alexPupnoldY, alexPupnoldHeight, alexPupnoldWidth)
+    if (alexPupnoldY + alexPupnoldHeight < theCapY) {
+        clearInterval(intervalId);
+    }
 }
 
 const moveAlexPupnold = () => {
@@ -160,7 +167,7 @@ const drawObstacle = () => {
         ctx.drawImage(obstaclesArray[i].imgElem, obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].width, obstaclesArray[i].height)
         obstaclesArray[i].y++
 
-        if (obstaclesArray[i].y == 150) {
+        if (obstaclesArray[i].y == 150 && theCapY < -canvas.height) {
             obstaclesArray.push({
                 imgElem: graniteRockImg,
                 x: theCapShape.topLeftX + Math.floor((theCapShape.topRightX - theCapShape.topLeftX) * Math.random()),
