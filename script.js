@@ -17,7 +17,7 @@ let skyY = -skyBackgroundImg.height + 500
 
 //global variables - drawTheCap
 let theCapImg = new Image();
-theCapImg.src = 'images/elCap2Narrow.jpg';
+theCapImg.src = 'images/elCap3.jpg';
 let theCapShape = {
     bottomLeftX: 100,
     topLeftX: 150,
@@ -101,7 +101,7 @@ document.addEventListener('keyup', (event) => {
 const drawSky = () => {
     ctx.drawImage(skyBackgroundImg, 0, skyY, canvas.width, skyBackgroundImg.height)
 
-    skyY += 1.04;
+    skyY += 0.5;
 
     ctx.font = "20px Arial"
     ctx.fillText('Score: ' + Math.round(score), 20, 30);
@@ -120,12 +120,12 @@ const drawTheCap = () => {
     ctx.drawImage(theCapImg, 0, theCapY)
     ctx.restore();
 
-    theCapShape.bottomLeftX += .1;
-    theCapShape.topLeftX += .1;
-    theCapShape.topRightX -= .1;
-    theCapShape.bottomRightX -= .1;
+    theCapShape.bottomLeftX += .01;
+    theCapShape.topLeftX += .01;
+    theCapShape.topRightX -= .01;
+    theCapShape.bottomRightX -= .01;
 
-    theCapY += 1;
+    theCapY += 0.5;
     score += .1;
 
     if (theCapShape.topLeftX == 325 && theCapShape.topRightX == 375) {
@@ -162,7 +162,7 @@ const drawObstacle = () => {
         ctx.drawImage(obstaclesArray[i].imgElem, obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].width, obstaclesArray[i].height)
         obstaclesArray[i].y++
 
-        if (obstaclesArray[i].y == 150 && theCapY < -canvas.height) {
+        if (obstaclesArray[i].y == 150 && theCapY < -canvas.height / 2) {
             obstaclesArray.push({
                 imgElem: graniteRockImg,
                 x: theCapShape.topLeftX + Math.floor((theCapShape.topRightX - theCapShape.topLeftX) * Math.random()),
