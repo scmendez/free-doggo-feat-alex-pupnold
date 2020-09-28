@@ -103,6 +103,9 @@ const drawSky = () => {
     ctx.drawImage(skyBackgroundImg, 0, skyY, canvas.width, skyBackgroundImg.height)
 
     skyY += .04;
+
+    ctx.font = "20px Arial"
+    ctx.fillText('Score: ' + Math.round(score), 20, 30);
 }
 
 const drawTheCap = () => {
@@ -123,7 +126,8 @@ const drawTheCap = () => {
     theCapShape.topRightX -= .01;
     theCapShape.bottomRightX -= .01;
 
-    theCapY += .07
+    theCapY += .07;
+    score += .1;
 }
 
 const drawAlexPupnold = () => {
@@ -171,7 +175,6 @@ const drawObstacle = () => {
 const checkObstacleCollision = () => {
     for (let i = 0; i < obstaclesArray.length; i++) {
         if ((alexPupnoldX < obstaclesArray[i].x + obstaclesArray[i].width / 2) && (alexPupnoldX + alexPupnoldWidth > obstaclesArray[i].x) && (alexPupnoldY < obstaclesArray[i].y + obstaclesArray[i].height / 2) && (alexPupnoldY + alexPupnoldHeight / 2 > obstaclesArray[i].y)) {
-            console.log('obstacleCheck');
             clearInterval(intervalId);
             alert('oh no, you were hit and fell!')
         }
