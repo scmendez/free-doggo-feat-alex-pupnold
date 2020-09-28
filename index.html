@@ -9,10 +9,27 @@
 </head>
 
 <body>
-    <main id='mainContainer'>
-        <div id="splashScreen">
-            <div>Game Title</div>
-            <button id='startButton'>Start Game</button>
+    <main id="mainContainer" class="main-container">
+        <div id="splashScreen" class="splash-screen">
+            <div class="game-logo">
+                <img src="images/gameLogo.png" alt="free doggo logo">
+            </div>
+            <div class="start-game-info">
+                <section class="start-game-info-goal">
+                    Goal: <br>
+                    Reach the top of The Cap without falling off the sides or colliding with falling rocks.
+                </section>
+                <section class=start-game-info-controls>
+                    Controls:
+                    <ul>
+                        <li>Left Arrow Key - move left</li>
+                        <li>Right Arrow Key - move right</li>
+                    </ul>
+                </section>
+                <section>
+                    <button id="startButton" class="start-button">Start Game</button>
+                </section>
+            </div>
         </div>
     </main>
 
