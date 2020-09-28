@@ -1,28 +1,21 @@
 //belayedAlex: https://www.pinterest.com/pin/66991113186037469/
 //elCap: https://www.yosemitehikes.com/images/wallpaper/yosemitehikes.com-el-cap-west-1920x1200.jpg
-//blueSky: https://i.ytimg.com/vi/0LcLB_JhjxQ/maxresdefault.jpg
 //elCapAndTrees: https://wallpapersafari.com/w/REoUqL
 //sky2: https://www.decorpad.com/bookmark.htm?bookmarkId=67944
 //granite rock: https://www.pngwing.com/en/free-png-nyigl
 
-//canvas + DOM
-let canvas = document.querySelector('canvas');
-canvas.style.border = '1px solid #000';
-
-//paintbrush
-let ctx = canvas.getContext('2d');
-
-//variables - overall
-let intervalId = 0;
-
+//global variables - overall
+let canvas;
+let ctx;
+let intervalId;
 let score = 0;
 
-//variables - drawSky
+//global variables - drawSky
 let skyBackgroundImg = new Image();
 skyBackgroundImg.src = 'images/sky2.png';
-let skyY = -skyBackgroundImg.height + canvas.height;
+let skyY = -skyBackgroundImg.height + 500
 
-//variables  drawTheCap
+//global variables - drawTheCap
 let theCapImg = new Image();
 theCapImg.src = 'images/elCap2Narrow.jpg';
 let theCapShape = {
@@ -30,23 +23,25 @@ let theCapShape = {
     topLeftX: 150,
     topRightX: 550,
     bottomRightX: 600,
-}
-let theCapY = -theCapImg.height + canvas.height;
+};
+let theCapY = -theCapImg.height + 500;
 
-//variables - alexPupnold
+//global variables - drawAlexPupnold
 let alexPupnoldImg = new Image();
 alexPupnoldImg.src = 'images/belayedAlexRight.png';
-let alexPupnoldWidth = 100;
-let alexPupnoldHeight = alexPupnoldWidth * .92;
-let alexPupnoldX = 300;
-let alexPupnoldY = canvas.height - 95
-let alexPupnoldXIncrement = 1.5;
+let alexPupnold = {
+    x: 300,
+    y: 405,
+    width: 100,
+    height: 92
+};
 
-//variables - moving alexPupnold
+//global variables - moveAlexPupnold
+let alexPupnoldXIncrement = 1.5;
 let isRightArrow = false;
 let isLeftArrow = false;
 
-//variables - obstacles
+//global variables - drawObstacle
 let graniteRockImg = new Image();
 graniteRockImg.src = 'images/graniteRock.png';
 let graniteRockHeight = 20;
@@ -55,30 +50,36 @@ let obstaclesArray = [{
     imgElem: graniteRockImg,
     x: 250,
     y: 0,
+    width: graniteRockWidth,
     height: graniteRockHeight,
-    width: graniteRockWidth
-}]
+}];
 
-//classes
-// class ObstacleClass {
-//     constructor(imgElem, x, y, width, height) {
-//         this.imgElem = imgElem;
-//         this.x = x;
-//         this.y = y;
-//         // this.r = r;
-//         this.width = width;
-//         this.height = height;
-//     }
-//     draw() {
-//         ctx.drawImage(this.imgElem, this.x, this.y, this.width, this.height)
-//         // ctx.beginPath();
-//         // ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-//         // ctx.fillStyle = this.color;
-//         // ctx.fill();
-//         // ctx.closePath();
-//     }
-// }
+//splash screen
+let startBtn = document.querySelector('#startButton')
+startBtn.addEventListener('click', () => {
+    startCanvas();
+});
 
+//splash screen to game screen
+const startCanvas = () => {
+    let mainDOM = document.querySelector('#mainContainer');
+
+    let splashScreenDOM = document.querySelector('#splashScreen');
+
+    mainDOM.removeChild(splashScreenDOM);
+
+    let canvasDOM = document.createElement('div');
+    canvasDOM.innerHTML = `<canvas width = "700" height = "500"> </canvas>`
+
+    mainDOM.appendChild(canvasDOM);
+
+    canvas = document.querySelector('canvas');
+    ctx = canvas.getContext('2d');
+
+    intervalId = setInterval(() => {
+        requestAnimationFrame(startGame)
+    }, 10)
+}
 
 //event listeners
 document.addEventListener('keydown', (event) => {
@@ -96,13 +97,11 @@ document.addEventListener('keyup', (event) => {
     isLeftArrow = false;
 })
 
-
 //functions
-
 const drawSky = () => {
     ctx.drawImage(skyBackgroundImg, 0, skyY, canvas.width, skyBackgroundImg.height)
 
-    skyY += .04;
+    skyY += 1.04;
 
     ctx.font = "20px Arial"
     ctx.fillText('Score: ' + Math.round(score), 20, 30);
@@ -121,10 +120,10 @@ const drawTheCap = () => {
     ctx.drawImage(theCapImg, 0, theCapY)
     ctx.restore();
 
-    theCapShape.bottomLeftX += .01;
-    theCapShape.topLeftX += .01;
-    theCapShape.topRightX -= .01;
-    theCapShape.bottomRightX -= .01;
+    theCapShape.bottomLeftX += .1;
+    theCapShape.topLeftX += .1;
+    theCapShape.topRightX -= .1;
+    theCapShape.bottomRightX -= .1;
 
     theCapY += 1;
     score += .1;
@@ -135,24 +134,24 @@ const drawTheCap = () => {
 }
 
 const drawAlexPupnold = () => {
-    ctx.drawImage(alexPupnoldImg, alexPupnoldX, alexPupnoldY, alexPupnoldHeight, alexPupnoldWidth)
-    if (alexPupnoldY + alexPupnoldHeight < theCapY) {
+    ctx.drawImage(alexPupnoldImg, alexPupnold.x, alexPupnold.y, alexPupnold.width, alexPupnold.height)
+    if (alexPupnold.y + alexPupnold.height < theCapY) {
         clearInterval(intervalId);
     }
 }
 
 const moveAlexPupnold = () => {
     if (isRightArrow) {
-        alexPupnoldX += alexPupnoldXIncrement
+        alexPupnold.x += alexPupnoldXIncrement
         alexPupnoldImg.src = 'images/belayedAlexRight.png';
     } else if (isLeftArrow) {
-        alexPupnoldX -= alexPupnoldXIncrement
+        alexPupnold.x -= alexPupnoldXIncrement
         alexPupnoldImg.src = 'images/belayedAlexLeft.png';
     }
 }
 
 const checkRockBoundaries = () => {
-    if (alexPupnoldX <= theCapShape.bottomLeftX - 35 || ((alexPupnoldX + alexPupnoldWidth) >= theCapShape.bottomRightX + 35)) {
+    if (alexPupnold.x <= theCapShape.bottomLeftX - 35 || ((alexPupnold.x + alexPupnold.width) >= theCapShape.bottomRightX + 35)) {
         clearInterval(intervalId);
         alert('oh no, you fell!')
     }
@@ -160,10 +159,6 @@ const checkRockBoundaries = () => {
 
 const drawObstacle = () => {
     for (let i = 0; i < obstaclesArray.length; i++) {
-        // let obstacle = new ObstacleClass(obstaclesArray[i].imgElem, obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].width, obstaclesArray[i].height)
-        // obstacle.draw()
-        // obstaclesArray[i].y++
-
         ctx.drawImage(obstaclesArray[i].imgElem, obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].width, obstaclesArray[i].height)
         obstaclesArray[i].y++
 
@@ -172,8 +167,9 @@ const drawObstacle = () => {
                 imgElem: graniteRockImg,
                 x: theCapShape.topLeftX + Math.floor((theCapShape.topRightX - theCapShape.topLeftX) * Math.random()),
                 y: -10,
-                height: graniteRockHeight,
-                width: graniteRockWidth
+                width: graniteRockWidth,
+                height: graniteRockHeight
+
             })
         }
     }
@@ -181,7 +177,7 @@ const drawObstacle = () => {
 
 const checkObstacleCollision = () => {
     for (let i = 0; i < obstaclesArray.length; i++) {
-        if ((alexPupnoldX < obstaclesArray[i].x + obstaclesArray[i].width / 2) && (alexPupnoldX + alexPupnoldWidth > obstaclesArray[i].x) && (alexPupnoldY < obstaclesArray[i].y + obstaclesArray[i].height / 2) && (alexPupnoldY + alexPupnoldHeight / 2 > obstaclesArray[i].y)) {
+        if ((alexPupnold.x < obstaclesArray[i].x + obstaclesArray[i].width / 2) && (alexPupnold.x + alexPupnold.width > obstaclesArray[i].x) && (alexPupnold.y < obstaclesArray[i].y + obstaclesArray[i].height / 2) && (alexPupnold.y + alexPupnold.height / 2 > obstaclesArray[i].y)) {
             clearInterval(intervalId);
             alert('oh no, you were hit and fell!')
         }
@@ -198,9 +194,4 @@ const startGame = () => {
     checkRockBoundaries();
     drawObstacle();
     checkObstacleCollision();
-    //update score
 }
-
-intervalId = setInterval(() => {
-    requestAnimationFrame(startGame)
-}, 10)
