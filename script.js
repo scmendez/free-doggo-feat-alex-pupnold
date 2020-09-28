@@ -3,6 +3,7 @@
 //blueSky: https://i.ytimg.com/vi/0LcLB_JhjxQ/maxresdefault.jpg
 //elCapAndTrees: https://wallpapersafari.com/w/REoUqL
 //sky2: https://www.decorpad.com/bookmark.htm?bookmarkId=67944
+//granite rock: https://www.pngwing.com/en/free-png-nyigl
 
 //canvas + DOM
 let canvas = document.querySelector('canvas');
@@ -35,8 +36,8 @@ let theCapY = -theCapImg.height + canvas.height;
 //variables - alexPupnold
 let alexPupnoldImg = new Image();
 alexPupnoldImg.src = 'images/belayedAlexRight.png';
-let alexPupnoldHeight = 100;
 let alexPupnoldWidth = 100;
+let alexPupnoldHeight = alexPupnoldWidth * .92;
 let alexPupnoldX = 300;
 let alexPupnoldY = canvas.height - 95
 let alexPupnoldXIncrement = 1.5;
@@ -46,29 +47,37 @@ let isRightArrow = false;
 let isLeftArrow = false;
 
 //variables - obstacles
+let graniteRockImg = new Image();
+graniteRockImg.src = 'images/graniteRock.png';
+let graniteRockHeight = 20;
+let graniteRockWidth = 20;
 let obstaclesArray = [{
+    imgElem: graniteRockImg,
     x: 250,
     y: 0,
-    radius: 10,
+    height: graniteRockHeight,
+    width: graniteRockWidth
 }]
 
 //classes
-class ObstacleClass {
-    constructor(x, y, r, color) {
-        //this.img = img;
-        this.x = x;
-        this.y = y;
-        this.r = r;
-        this.color = color || 'white';
-    }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
-    }
-}
+// class ObstacleClass {
+//     constructor(imgElem, x, y, width, height) {
+//         this.imgElem = imgElem;
+//         this.x = x;
+//         this.y = y;
+//         // this.r = r;
+//         this.width = width;
+//         this.height = height;
+//     }
+//     draw() {
+//         ctx.drawImage(this.imgElem, this.x, this.y, this.width, this.height)
+//         // ctx.beginPath();
+//         // ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false);
+//         // ctx.fillStyle = this.color;
+//         // ctx.fill();
+//         // ctx.closePath();
+//     }
+// }
 
 
 //event listeners
@@ -134,22 +143,37 @@ const moveAlexPupnold = () => {
 const checkRockBoundaries = () => {
     if (alexPupnoldX <= theCapShape.bottomLeftX - 35 || ((alexPupnoldX + alexPupnoldWidth) >= theCapShape.bottomRightX + 35)) {
         clearInterval(intervalId);
-        alert('oh no, you died!')
+        alert('oh no, you fell!')
     }
 }
 
 const drawObstacle = () => {
     for (let i = 0; i < obstaclesArray.length; i++) {
-        let obstacle = new ObstacleClass(obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].radius)
-        obstacle.draw()
+        // let obstacle = new ObstacleClass(obstaclesArray[i].imgElem, obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].width, obstaclesArray[i].height)
+        // obstacle.draw()
+        // obstaclesArray[i].y++
+
+        ctx.drawImage(obstaclesArray[i].imgElem, obstaclesArray[i].x, obstaclesArray[i].y, obstaclesArray[i].width, obstaclesArray[i].height)
         obstaclesArray[i].y++
 
         if (obstaclesArray[i].y == 150) {
             obstaclesArray.push({
+                imgElem: graniteRockImg,
                 x: theCapShape.topLeftX + Math.floor((theCapShape.topRightX - theCapShape.topLeftX) * Math.random()),
                 y: -10,
-                radius: 10,
+                height: graniteRockHeight,
+                width: graniteRockWidth
             })
+        }
+    }
+}
+
+const checkObstacleCollision = () => {
+    for (let i = 0; i < obstaclesArray.length; i++) {
+        if ((alexPupnoldX < obstaclesArray[i].x + obstaclesArray[i].width / 2) && (alexPupnoldX + alexPupnoldWidth > obstaclesArray[i].x) && (alexPupnoldY < obstaclesArray[i].y + obstaclesArray[i].height / 2) && (alexPupnoldY + alexPupnoldHeight / 2 > obstaclesArray[i].y)) {
+            console.log('obstacleCheck');
+            clearInterval(intervalId);
+            alert('oh no, you were hit and fell!')
         }
     }
 }
@@ -163,8 +187,8 @@ const startGame = () => {
     moveAlexPupnold();
     checkRockBoundaries();
     drawObstacle();
+    checkObstacleCollision();
     //update score
-    //draw obstacles
 }
 
 intervalId = setInterval(() => {
