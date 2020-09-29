@@ -11,7 +11,7 @@ Guide Alex Pup-nold horizontally as he climbs to the top of The Captain while av
 ## MVP (DOM - CANVAS)
 
 - Alex Pup-nold (rock climbing dog) that moves horizontally
-- static obstacles (rocks and branches) appearing randomly on the mountain as Alex Pup-nold climbs
+- static obstacles appearing randomly on the mountain as Alex Pup-nold climbs
 - mountain background moving down to give the illusion of Alex Pup-nold climbing
 - touching obstacles or going off the rock will end the game
 - bowl of treats at the top

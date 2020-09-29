@@ -3,6 +3,7 @@
 //elCapAndTrees: https://wallpapersafari.com/w/REoUqL
 //sky2: https://www.decorpad.com/bookmark.htm?bookmarkId=67944
 //granite rock: https://www.pngwing.com/en/free-png-nyigl
+//dog bowl: https://www.shutterstock.com/image-photo/dog-treats-bowl-on-wooden-table-443930170
 
 //global variables - overall
 let canvas;
@@ -17,7 +18,7 @@ let skyY = -skyBackgroundImg.height + 500
 
 //global variables - drawTheCap
 let theCapImg = new Image();
-theCapImg.src = 'images/elCap3.jpg';
+theCapImg.src = 'images/elCap4.png';
 let theCapShape = {
     bottomLeftX: 100,
     topLeftX: 150,
@@ -25,6 +26,13 @@ let theCapShape = {
     bottomRightX: 600,
 };
 let theCapY = -theCapImg.height + 500;
+
+let dogBowlImg = new Image();
+dogBowlImg.src = 'images/dogBowl.png';
+let dogBowl = {
+    width: 50,
+    height: 40
+}
 
 //global variables - drawAlexPupnold
 let alexPupnoldImg = new Image();
@@ -106,7 +114,7 @@ const gameOverWin = () => {
     clearInterval(intervalId);
 
     ctx.font = '30px Arial';
-    ctx.fillText('YOU DID IT!', 300, 200);
+    ctx.fillText('YOU DID IT!', 275, 200);
 }
 
 //event listeners
@@ -153,17 +161,22 @@ const drawTheCap = () => {
     theCapShape.topRightX -= .01;
     theCapShape.bottomRightX -= .01;
 
-    theCapY += 0.5;
+    theCapY += 3;
     score += .1;
 
     if (theCapShape.topLeftX == 325 && theCapShape.topRightX == 375) {
         ctx.closePath();
     }
+
+    ctx.drawImage(dogBowlImg, theCapShape.topLeftX + 50, theCapY + 10, dogBowl.width, dogBowl.height);
+    if ((alexPupnold.x < theCapShape.topLeftX + 50 + dogBowl.width / 2) && (alexPupnold.x + alexPupnold.width > theCapShape.topLeftX + 50) && (alexPupnold.y < theCapY + 10 + dogBowl.height / 2) && (alexPupnold.y + alexPupnold.height / 2 > theCapY + 10)) {
+        score += 10
+    }
 }
 
 const drawAlexPupnold = () => {
     ctx.drawImage(alexPupnoldImg, alexPupnold.x, alexPupnold.y, alexPupnold.width, alexPupnold.height)
-    if (alexPupnold.y + alexPupnold.height < theCapY) {
+    if (alexPupnold.y + alexPupnold.height / 2 < theCapY) {
         gameOverWin();
     }
 }
@@ -217,6 +230,6 @@ const startGame = () => {
     drawAlexPupnold();
     moveAlexPupnold();
     checkRockBoundaries();
-    drawObstacle();
+    //drawObstacle();
     checkObstacleCollision();
 }
