@@ -3,7 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aquamarine;
+    border: 2px solid #f4a261;
+    background-color: #fff1e6;
     width: 100%;
     height: 500px;
 }
@@ -23,22 +24,33 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    color: #264653;
 }
 
 .start-game-info-goal {
-    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.start-game-info-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .start-game-info ul {
     display: block;
     margin: 0 auto;
+    padding-top: 10px;
 }
 
 .start-button {
-    margin: 20px;
+    margin: 30px;
     background-color: #F02B45;
     color: #fff;
-    border: 1px solid grey;
+    border: 1px solid #fff;
     padding: 10px;
     border-radius: 3px;
     transition: all 0.5s;
@@ -47,9 +59,11 @@
 .start-button:hover {
     background-color: #fff;
     color: #F02B45;
-    transform: scale(1.25);
+    border: 1px solid #F02B45;
+    transform: scale(1.1);
 }
 
+/* game screen */
 canvas {
     display: block;
     margin: 0 auto;
