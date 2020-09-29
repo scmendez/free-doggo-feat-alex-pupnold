@@ -5,6 +5,7 @@
 //granite rock: https://www.pngwing.com/en/free-png-nyigl
 //dog bowl: https://www.shutterstock.com/image-photo/dog-treats-bowl-on-wooden-table-443930170
 //dog treat: https://eatthegains.com/peanut-butter-banana-dog-treats/
+//climbing music: https://www.youtube.com/watch?v=G69srScF9Ig&ab_channel=MouvementProduction
 
 //global variables - overall
 let canvas;
@@ -76,6 +77,22 @@ let dogTreatsArray = [{
     height: dogTreatHeight,
 }];
 
+//sounds
+//climbingMusic
+let climbingMusic = new Audio();
+climbingMusic.src = 'sounds/aClimbersAnthem.mp3';
+climbingMusic.volume = 0.2;
+
+//gameWinMusic
+let gameWinMusic = new Audio();
+gameWinMusic.src = 'sounds/gameWinMusic.mp3'
+gameWinMusic.volume = 0.2;
+
+//gameLossMusic
+let gameLossMusic = new Audio();
+gameLossMusic.src = 'sounds/gameLossMusic.mp3';
+gameLossMusic.volume = 0.2;
+
 //splash screen
 let mainDOM;
 let canvasDOM;
@@ -97,6 +114,7 @@ const startGameSetup = () => {
     canvasDOM.innerHTML = `<canvas width = "700" height = "500"> </canvas>`
 
     mainDOM.appendChild(canvasDOM);
+    climbingMusic.play();
 
     canvas = document.querySelector('canvas');
     ctx = canvas.getContext('2d');
@@ -108,6 +126,8 @@ const startGameSetup = () => {
 
 //game screen to game over loss screen
 const gameOverLoss = () => {
+    climbingMusic.pause();
+    gameLossMusic.play();
     clearInterval(intervalId);
 
     score = 0;
@@ -150,6 +170,8 @@ const gameOverLoss = () => {
 
 //game screen to game over win screen
 const gameOverWin = () => {
+    climbingMusic.pause();
+    gameWinMusic.play();
     clearInterval(intervalId);
 
     congratsTextDOM = document.createElement('div');
