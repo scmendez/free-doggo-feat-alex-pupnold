@@ -87,6 +87,8 @@ const startGameSetup = () => {
     canvas = document.querySelector('canvas');
     ctx = canvas.getContext('2d');
 
+    console.log('before interval')
+
     intervalId = setInterval(() => {
         requestAnimationFrame(startGame)
     }, 10)
@@ -95,9 +97,28 @@ const startGameSetup = () => {
 //game screen to game over loss screen
 const gameOverLoss = () => {
     clearInterval(intervalId);
+
+    score = 0;
+    theCapY = -theCapImg.height + 500;
+    alexPupnold = {
+        x: 300,
+        y: 405,
+        width: 100,
+        height: 92
+    };
+    obstaclesArray = [{
+        imgElem: graniteRockImg,
+        x: 250,
+        y: 0,
+        width: graniteRockWidth,
+        height: graniteRockHeight,
+    }];
+
     mainDOM.removeChild(canvasDOM);
+    console.log('inside game over loss')
 
     let gameOverLossDOM = document.createElement('div');
+    gameOverLossDOM.setAttribute('id', 'splashScreen');
     gameOverLossDOM.innerHTML = `<img src="images/gameOverText.png" alt="Game Over"> <p>At least all dogs go to heaven...right?</p> <button id="playAgainButton" class="play-again-button">That was just practice, I wanna try again</button>`
     gameOverLossDOM.classList.add('game-over-loss');
 
@@ -105,6 +126,7 @@ const gameOverLoss = () => {
 
     let playAgainBtn = document.querySelector('#playAgainButton')
     playAgainBtn.addEventListener('click', () => {
+        console.log('click');
         startGameSetup();
     });
 }
@@ -113,8 +135,11 @@ const gameOverLoss = () => {
 const gameOverWin = () => {
     clearInterval(intervalId);
 
-    ctx.font = '30px Arial';
-    ctx.fillText('YOU DID IT!', 275, 200);
+    congratsTextDOM = document.createElement('div');
+    congratsTextDOM.innerHTML = `<img src="images/gameOverWin.gif" alt="You did it!">`
+    congratsTextDOM.classList.add('game-over-win');
+
+    mainDOM.appendChild(congratsTextDOM);
 }
 
 //event listeners
@@ -193,6 +218,7 @@ const moveAlexPupnold = () => {
 
 const checkRockBoundaries = () => {
     if (alexPupnold.x <= theCapShape.bottomLeftX - 35 || ((alexPupnold.x + alexPupnold.width) >= theCapShape.bottomRightX + 35)) {
+        console.log('rock collision')
         gameOverLoss();
     }
 }
@@ -217,6 +243,7 @@ const drawObstacle = () => {
 const checkObstacleCollision = () => {
     for (let i = 0; i < obstaclesArray.length; i++) {
         if ((alexPupnold.x < obstaclesArray[i].x + obstaclesArray[i].width / 2) && (alexPupnold.x + alexPupnold.width > obstaclesArray[i].x) && (alexPupnold.y < obstaclesArray[i].y + obstaclesArray[i].height / 2) && (alexPupnold.y + alexPupnold.height / 2 > obstaclesArray[i].y)) {
+            console.log('falling obstacle collision')
             gameOverLoss();
         }
     }
@@ -230,6 +257,6 @@ const startGame = () => {
     drawAlexPupnold();
     moveAlexPupnold();
     checkRockBoundaries();
-    //drawObstacle();
+    drawObstacle();
     checkObstacleCollision();
 }

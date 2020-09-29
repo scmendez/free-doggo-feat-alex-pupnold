@@ -101,3 +101,9 @@ button {
     border: 1px solid #F02B45;
     /* transform: scale(1.1); */
 }
+
+/* game over win screen*/
+.game-over-win {
+    position: absolute;
+    /* left: ; */
+}
