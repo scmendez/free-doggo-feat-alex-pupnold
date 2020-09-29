@@ -4,6 +4,7 @@
 //sky2: https://www.decorpad.com/bookmark.htm?bookmarkId=67944
 //granite rock: https://www.pngwing.com/en/free-png-nyigl
 //dog bowl: https://www.shutterstock.com/image-photo/dog-treats-bowl-on-wooden-table-443930170
+//dog treat: https://eatthegains.com/peanut-butter-banana-dog-treats/
 
 //global variables - overall
 let canvas;
@@ -62,6 +63,19 @@ let obstaclesArray = [{
     height: graniteRockHeight,
 }];
 
+//global variables - drawTreat
+let dogTreatImg = new Image();
+dogTreatImg.src = 'images/dogTreat.png';
+let dogTreatHeight = 20;
+let dogTreatWidth = 30;
+let dogTreatsArray = [{
+    imgElem: dogTreatImg,
+    x: 200,
+    y: -50,
+    width: dogTreatWidth,
+    height: dogTreatHeight,
+}];
+
 //splash screen
 let mainDOM;
 let canvasDOM;
@@ -87,8 +101,6 @@ const startGameSetup = () => {
     canvas = document.querySelector('canvas');
     ctx = canvas.getContext('2d');
 
-    console.log('before interval')
-
     intervalId = setInterval(() => {
         requestAnimationFrame(startGame)
     }, 10)
@@ -113,9 +125,15 @@ const gameOverLoss = () => {
         width: graniteRockWidth,
         height: graniteRockHeight,
     }];
+    dogTreatsArray = [{
+        imgElem: dogTreatImg,
+        x: 250,
+        y: -50,
+        width: dogTreatHeight,
+        height: dogTreatWidth,
+    }];
 
     mainDOM.removeChild(canvasDOM);
-    console.log('inside game over loss')
 
     let gameOverLossDOM = document.createElement('div');
     gameOverLossDOM.setAttribute('id', 'splashScreen');
@@ -126,7 +144,6 @@ const gameOverLoss = () => {
 
     let playAgainBtn = document.querySelector('#playAgainButton')
     playAgainBtn.addEventListener('click', () => {
-        console.log('click');
         startGameSetup();
     });
 }
@@ -186,7 +203,7 @@ const drawTheCap = () => {
     theCapShape.topRightX -= .01;
     theCapShape.bottomRightX -= .01;
 
-    theCapY += 3;
+    theCapY += 0.5;
     score += .1;
 
     if (theCapShape.topLeftX == 325 && theCapShape.topRightX == 375) {
@@ -218,7 +235,6 @@ const moveAlexPupnold = () => {
 
 const checkRockBoundaries = () => {
     if (alexPupnold.x <= theCapShape.bottomLeftX - 35 || ((alexPupnold.x + alexPupnold.width) >= theCapShape.bottomRightX + 35)) {
-        console.log('rock collision')
         gameOverLoss();
     }
 }
@@ -240,11 +256,35 @@ const drawObstacle = () => {
     }
 }
 
+const drawTreat = () => {
+    for (let i = 0; i < dogTreatsArray.length; i++) {
+        ctx.drawImage(dogTreatsArray[i].imgElem, dogTreatsArray[i].x, dogTreatsArray[i].y, dogTreatsArray[i].width, dogTreatsArray[i].height)
+        dogTreatsArray[i].y++
+
+        if (dogTreatsArray[i].y == 250 && theCapY < -canvas.height / 2) {
+            dogTreatsArray.push({
+                imgElem: dogTreatImg,
+                x: theCapShape.topLeftX + Math.floor((theCapShape.topRightX - theCapShape.topLeftX) * Math.random()),
+                y: -10,
+                width: dogTreatWidth,
+                height: dogTreatHeight
+            })
+        }
+    }
+}
+
 const checkObstacleCollision = () => {
     for (let i = 0; i < obstaclesArray.length; i++) {
         if ((alexPupnold.x < obstaclesArray[i].x + obstaclesArray[i].width / 2) && (alexPupnold.x + alexPupnold.width > obstaclesArray[i].x) && (alexPupnold.y < obstaclesArray[i].y + obstaclesArray[i].height / 2) && (alexPupnold.y + alexPupnold.height / 2 > obstaclesArray[i].y)) {
-            console.log('falling obstacle collision')
             gameOverLoss();
+        }
+    }
+}
+
+const checkTreatCollision = () => {
+    for (let i = 0; i < dogTreatsArray.length; i++) {
+        if ((alexPupnold.x < dogTreatsArray[i].x + dogTreatsArray[i].width / 2) && (alexPupnold.x + alexPupnold.width > dogTreatsArray[i].x) && (alexPupnold.y < dogTreatsArray[i].y + dogTreatsArray[i].height / 2) && (alexPupnold.y + alexPupnold.height / 2 > dogTreatsArray[i].y)) {
+            score += 1
         }
     }
 }
@@ -258,5 +298,7 @@ const startGame = () => {
     moveAlexPupnold();
     checkRockBoundaries();
     drawObstacle();
+    drawTreat();
     checkObstacleCollision();
+    checkTreatCollision();
 }
