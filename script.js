@@ -284,7 +284,8 @@ const checkObstacleCollision = () => {
 const checkTreatCollision = () => {
     for (let i = 0; i < dogTreatsArray.length; i++) {
         if ((alexPupnold.x < dogTreatsArray[i].x + dogTreatsArray[i].width / 2) && (alexPupnold.x + alexPupnold.width > dogTreatsArray[i].x) && (alexPupnold.y < dogTreatsArray[i].y + dogTreatsArray[i].height / 2) && (alexPupnold.y + alexPupnold.height / 2 > dogTreatsArray[i].y)) {
-            score += 1
+            score += 100
+            dogTreatsArray.splice([i], 1);
         }
     }
 }
