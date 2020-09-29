@@ -90,9 +90,15 @@ const gameOverLoss = () => {
     mainDOM.removeChild(canvasDOM);
 
     let gameOverLossDOM = document.createElement('div');
-    gameOverLossDOM.innerHTML = `<p>Oh no!</p>`
+    gameOverLossDOM.innerHTML = `<img src="images/gameOverText.png" alt="Game Over"> <p>At least all dogs go to heaven...right?</p> <button id="playAgainButton" class="play-again-button">That was just practice, I wanna try again</button>`
+    gameOverLossDOM.classList.add('game-over-loss');
 
     mainDOM.appendChild(gameOverLossDOM);
+
+    let playAgainBtn = document.querySelector('#playAgainButton')
+    playAgainBtn.addEventListener('click', () => {
+        startGameSetup();
+    });
 }
 
 //game screen to game over win screen
