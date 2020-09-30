@@ -14,7 +14,9 @@
 let canvas;
 let ctx;
 let intervalId;
-let score = 0;
+let elevationScore = 0;
+let treatScore = 0;
+let finalScore = 0;
 
 //global variables - drawSky
 let skyBackgroundImg = new Image();
@@ -86,8 +88,8 @@ let dogTreatsArray = [
 
 //sounds
 //menuMusic
-let menuMusic = document.getElementById("menuMusic")
-menuMusic.volume = 0.2;
+let menuMusic = document.getElementById("menuMusic");
+menuMusic.volume = 0.1;
 
 //climbingMusic
 let climbingMusic = new Audio();
@@ -142,8 +144,11 @@ const startGameSetup = () => {
   mainDOM.appendChild(canvasDOM);
   theCapY = -theCapImg.height + 500;
   skyY = -skyBackgroundImg.height + 500;
+  fallingMusic.pause();
+  fallingMusic.currentTime = 0;
+  gameLossMusic.pause();
+  gameLossMusic.currentTime = 0;
   climbingMusic.play();
-  console.log(theCapY)
 
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");
@@ -156,10 +161,13 @@ const startGameSetup = () => {
 //game screen to game over loss screen
 const gameOverLoss = () => {
   climbingMusic.pause();
+  climbingMusic.currentTime = 0;
   gameLossMusic.play();
   clearInterval(intervalId);
 
-  score = 0;
+  elevationScore = 0;
+  treatScore = 0;
+  finalScore = 0;
   theCapY = -theCapImg.height + 500;
   alexPupnold = {
     x: 300,
@@ -190,7 +198,14 @@ const gameOverLoss = () => {
 
   let gameOverLossDOM = document.createElement("div");
   gameOverLossDOM.setAttribute("id", "splashScreen");
-  gameOverLossDOM.innerHTML = `<img src="images/gameOverText.png" alt="Game Over"> <p>At least all dogs go to heaven...right?</p> <button id="playAgainButton" class="play-again-button">That was just practice, I wanna try again</button>`;
+  //gameOverLossDOM.innerHTML = `<img src="images/gameOverText.png" alt="Game Over"> <p>At least all dogs go to heaven...right?</p> <button id="playAgainButton" class="play-again-button">That was just practice, I wanna try again</button>`;
+  gameOverLossDOM.innerHTML = `
+  <img src="images/sleepingHeeler.png" alt="sleeping Australian Heeler puppy" class="sleeping-heeler">
+  <div class="game-over-loss-text">
+  <img src="images/dreamCloud.png" alt="careful! you almost woke up">
+  <button id="playAgainButton" class="play-again-button">Go back to sleep and try again</button>
+  </div>`;
+
   gameOverLossDOM.classList.add("game-over-loss");
 
   mainDOM.appendChild(gameOverLossDOM);
@@ -204,6 +219,7 @@ const gameOverLoss = () => {
 //game screen to game over win screen
 const gameOverWin = () => {
   climbingMusic.pause();
+  climbingMusic.currentTime = 0;
   gameWinMusic.play();
   clearInterval(intervalId);
 
@@ -212,6 +228,11 @@ const gameOverWin = () => {
   congratsTextDOM.classList.add("game-over-win");
 
   mainDOM.appendChild(congratsTextDOM);
+
+  finalScore = Math.round(elevationScore) + Math.round(treatScore);
+
+  ctx.font = "15px Arial";
+  ctx.fillText("Final Score: " + Math.round(finalScore), 300, 300);
 };
 
 //event listeners
@@ -242,8 +263,10 @@ const drawSky = () => {
 
   skyY += 0.5;
 
-  ctx.font = "20px Arial";
-  ctx.fillText("Score: " + Math.round(score), 20, 30);
+  ctx.font = "15px Arial";
+  ctx.fillText("Elevation: " + Math.round(elevationScore) + "m", 20, 30);
+  ctx.font = "15px Arial";
+  ctx.fillText("Treat Bonus: " + Math.round(treatScore), 20, 60);
 };
 
 const drawTheCap = () => {
@@ -265,7 +288,7 @@ const drawTheCap = () => {
   theCapShape.bottomRightX -= 0.01;
 
   theCapY += 0.5;
-  score += 0.1;
+  elevationScore += 0.492;
 
   if (theCapShape.topLeftX == 325 && theCapShape.topRightX == 375) {
     ctx.closePath();
@@ -284,7 +307,7 @@ const drawTheCap = () => {
     alexPupnold.y < theCapY + 10 + dogBowl.height / 2 &&
     alexPupnold.y + alexPupnold.height / 2 > theCapY + 10
   ) {
-    score += 10;
+    treatScore += 1.5;
   }
 };
 
@@ -332,7 +355,7 @@ const drawObstacle = () => {
     );
     obstaclesArray[i].y += 1.5;
 
-    if (obstaclesArray[i].y == 150 && theCapY < -canvas.height / 12) {
+    if (obstaclesArray[i].y == 150 && theCapY < -100) {
       obstaclesArray.push({
         imgElem: graniteRockImg,
         x:
@@ -359,7 +382,7 @@ const drawTreat = () => {
     );
     dogTreatsArray[i].y++;
 
-    if (dogTreatsArray[i].y == 250 && theCapY < -canvas.height / 2) {
+    if (dogTreatsArray[i].y == 250 && theCapY < -100) {
       dogTreatsArray.push({
         imgElem: dogTreatImg,
         x:
@@ -397,7 +420,7 @@ const checkTreatCollision = () => {
       alexPupnold.y < dogTreatsArray[i].y + dogTreatsArray[i].height / 2 &&
       alexPupnold.y + alexPupnold.height / 2 > dogTreatsArray[i].y
     ) {
-      score += 100;
+      treatScore += 100;
       treatMusic.play();
       dogTreatsArray.splice([i], 1);
     }
@@ -412,7 +435,7 @@ const startGame = () => {
   drawAlexPupnold();
   moveAlexPupnold();
   checkRockBoundaries();
-  drawObstacle();
+  //drawObstacle();
   drawTreat();
   checkObstacleCollision();
   checkTreatCollision();

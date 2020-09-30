@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Doggo</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
-    <main id="mainContainer" class="main-container">
-      <div id="splashScreen" class="splash-screen">
-        <div class="game-logo">
-          <img src="images/gameLogo.png" alt="free doggo logo" />
-          <audio autoplay loop src="sounds/menuMusic.mp3" id="menuMusic" volume="0.1"></audio>
-        </div>
-        <div class="start-game-info">
-          <section class="start-game-info-goal">
-            <img src="images/goalTitle.png" alt="Goal:" />
-            <br />
-            Reach the top of The Cap without falling off the sides or colliding
-            with falling rocks. Catch the falling dog treats and reach the dog
-            bowl at the top for bonus points!
-          </section>
-          <section class="start-game-info-controls">
-            <img src="images/controlsTitle.png" alt="Controls:" />
-            <ul>
-              <li>Left Arrow Key - move left</li>
-              <li>Right Arrow Key - move right</li>
-            </ul>
-          </section>
-          <section>
-            <button id="startButton" class="start-button">Start Game</button>
-          </section>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Doggo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main id="mainContainer" class="main-container">
+    <div id="splashScreen" class="splash-screen">
+      <div class="game-logo">
+        <img src="images/gameLogo.png" alt="free doggo logo" />
+        <audio autoplay loop>
+          <source src="sounds/menuMusic.mp3" id="menuMusic">
+        </audio>
       </div>
-    </main>
-    <script src="script.js"></script>
-  </body>
+      <div class="start-game-info">
+        <section class="start-game-info-goal">
+          <img src="images/goalTitle.png" alt="Goal:" />
+          <br />
+          Reach the top of The Cap without falling off the sides or colliding
+          with falling rocks. Catch the falling dog treats and reach the dog
+          bowl at the top for bonus points!
+        </section>
+        <section class="start-game-info-controls">
+          <img src="images/controlsTitle.png" alt="Controls:" />
+          <ul>
+            <li>Left Arrow Key - move left</li>
+            <li>Right Arrow Key - move right</li>
+          </ul>
+        </section>
+        <section>
+          <button id="startButton" class="start-button">Start Game</button>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+
 </html>
