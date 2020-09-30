@@ -143,6 +143,7 @@ const startGameSetup = () => {
   theCapY = -theCapImg.height + 500;
   skyY = -skyBackgroundImg.height + 500;
   climbingMusic.play();
+  console.log(theCapY)
 
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");
@@ -329,9 +330,9 @@ const drawObstacle = () => {
       obstaclesArray[i].width,
       obstaclesArray[i].height
     );
-    obstaclesArray[i].y++;
+    obstaclesArray[i].y += 1.5;
 
-    if (obstaclesArray[i].y == 150 && theCapY < -canvas.height / 2) {
+    if (obstaclesArray[i].y == 150 && theCapY < -canvas.height / 12) {
       obstaclesArray.push({
         imgElem: graniteRockImg,
         x:
@@ -339,7 +340,7 @@ const drawObstacle = () => {
           Math.floor(
             (theCapShape.topRightX - theCapShape.topLeftX) * Math.random()
           ),
-        y: -10,
+        y: -9,
         width: graniteRockWidth,
         height: graniteRockHeight,
       });
