@@ -85,20 +85,39 @@ let dogTreatsArray = [
 ];
 
 //sounds
+//menuMusic
+let menuMusic = document.getElementById("menuMusic")
+menuMusic.volume = 0.2;
+
 //climbingMusic
 let climbingMusic = new Audio();
 climbingMusic.src = "sounds/aClimbersAnthem.mp3";
 climbingMusic.volume = 0.2;
 
-//gameWinMusic
-let gameWinMusic = new Audio();
-gameWinMusic.src = "sounds/gameWinMusic.mp3";
-gameWinMusic.volume = 0.2;
+//treatMusic
+let treatMusic = new Audio();
+treatMusic.src = "sounds/treatBark.mp3";
+treatMusic.volume = 0.2;
+
+//fallingMusic
+let fallingMusic = new Audio();
+fallingMusic.src = "sounds/rockBorderSound.mp3";
+fallingMusic.volume = 0.1;
+
+//collisionMusic
+let collisionMusic = new Audio();
+collisionMusic.src = "sounds/rockCollisionSound.mp3";
+collisionMusic.volume = 0.3;
 
 //gameLossMusic
 let gameLossMusic = new Audio();
 gameLossMusic.src = "sounds/gameLossMusic.mp3";
 gameLossMusic.volume = 0.2;
+
+//gameWinMusic
+let gameWinMusic = new Audio();
+gameWinMusic.src = "sounds/gameWinMusic.mp3";
+gameWinMusic.volume = 0.2;
 
 //splash screen
 let mainDOM;
@@ -296,6 +315,7 @@ const checkRockBoundaries = () => {
     alexPupnold.x <= theCapShape.bottomLeftX - 35 ||
     alexPupnold.x + alexPupnold.width >= theCapShape.bottomRightX + 35
   ) {
+    fallingMusic.play();
     gameOverLoss();
   }
 };
@@ -362,6 +382,7 @@ const checkObstacleCollision = () => {
       alexPupnold.y < obstaclesArray[i].y + obstaclesArray[i].height / 2 &&
       alexPupnold.y + alexPupnold.height / 2 > obstaclesArray[i].y
     ) {
+      collisionMusic.play();
       gameOverLoss();
     }
   }
@@ -376,6 +397,7 @@ const checkTreatCollision = () => {
       alexPupnold.y + alexPupnold.height / 2 > dogTreatsArray[i].y
     ) {
       score += 100;
+      treatMusic.play();
       dogTreatsArray.splice([i], 1);
     }
   }
