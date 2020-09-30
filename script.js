@@ -435,7 +435,7 @@ const startGame = () => {
   drawAlexPupnold();
   moveAlexPupnold();
   checkRockBoundaries();
-  //drawObstacle();
+  drawObstacle();
   drawTreat();
   checkObstacleCollision();
   checkTreatCollision();
