@@ -76,6 +76,13 @@ const startGameSetup = () => {
     gameLossMusic.currentTime = 0;
     climbingMusic.play();
 
+
+    theCapShape = {
+        bottomLeftX: 100,
+        topLeftX: 150,
+        topRightX: 550,
+        bottomRightX: 600,
+    };
     elevationScore = 0;
     treatScore = 0;
     finalScore = 0;
