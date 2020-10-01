@@ -19,53 +19,48 @@ Guide Alex Pup-nold horizontally as he climbs to the top of The Captain while av
 
 ## Backlog
 
-- treats to increase points
-- sounds
+- falling treats to increase points
+- collision sounds and background music
 - difficulty levels
-- elevation fun fact popups
 - high score log
+- elevation fun fact popups
 
 ## Data structure
 
-# main.js
-
-- buildSplashScreen() {}
-- buildGameScreen () {}
-- buildGameOverLoseScreen () {}
-- buildGameOverWinScreen () {}
-
 # game.js
 
-- game () {}
-- startLoop () {}
-- checkObstacleCollision () {}
-- addObstacle () {}
-- checkRockBoundaries () {}
-- updateRockBackground () {}
-- GameOverLoss () {}
-- GameOverWin () {}
+- startGameSetup () {}
+- gameOverLoss () {}
+- gameOverWin () {}
+- startGame () {
+    drawSky();
+    drawTheCap();
+    drawAlexPupnold();
+    moveAlexPupnold();
+    checkRockBoundaries();
+    drawObstacle();
+    drawTreat();
+    checkObstacleCollision();
+    checkTreatCollision();
+}
 
 # alexPupnold.js
 
-- alexPupnold () {this.x; this.y}
-- draw () {}
-- move () {}
-- checkObstacleCollision () {}
-- checkRockBoundaries () {}
+- drawAlexPupnold () {}
+- moveAlexPupnold () {}
 
-# rockBackground.js
+# theCapAndSky.js
 
-- draw () {}
-- move () {}
+- drawSky () {}
+- drawTheCap () {}
 - checkRockBoundaries () {}
-- score () {}
 
 # obstacles.js
 
-- obstacle () {}
-- draw () {}
-- move () {}
+- drawObstacle () {}
 - checkObstacleCollision () {}
+- drawTreat () {}
+- checkTreatCollision () {}
 
 ## States y States Transitions
 
