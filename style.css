@@ -158,7 +158,7 @@ button {
     /* padding-bottom: 235px; */
 }
 
-.play-again-button-win {
+.main-menu-win-button {
     position: absolute;
     left: 45%;
     top: 65%;
@@ -171,7 +171,7 @@ button {
     margin-top: 0px;
 }
 
-.play-again-button-win:hover {
+.main-menu-win-button:hover {
     background-color: #fff;
     color: #264653;
     border: 1px solid #264653;
