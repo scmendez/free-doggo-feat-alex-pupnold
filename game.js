@@ -177,6 +177,7 @@ const gameOverLoss = () => {
     gameOverLossDOM.innerHTML = `
   <img src="images/gameOverImage.png" alt="careful! you almost woke up from your snoozle">
   <button id="playAgainButtonLoss" class="play-again-button-loss">Go back to sleep and try again</button>
+  <button id="mainMenuLossBtn" class="main-menu-loss-button">Main Menu</button>
   </div>`;
 
     gameOverLossDOM.classList.add("game-over-loss");
@@ -186,6 +187,12 @@ const gameOverLoss = () => {
     let playAgainLossBtn = document.querySelector("#playAgainButtonLoss");
     playAgainLossBtn.addEventListener("click", () => {
         startGameSetup();
+    });
+
+    let mainMenuLossBtn = document.querySelector("#mainMenuLossBtn");
+    mainMenuLossBtn.addEventListener("click", () => {
+        window.location.reload()
+        return false;
     });
 };
 
@@ -197,7 +204,7 @@ const gameOverWin = () => {
 
     congratsTextDOM = document.createElement("div");
     congratsTextDOM.setAttribute("id", "splashScreen");
-    congratsTextDOM.innerHTML = `<img src="images/gameOverWin.gif" alt="You did it!"> <button id="mainMenuWinBtn" class="main-menu-win-button">Main menu</button>`;
+    congratsTextDOM.innerHTML = `<img src="images/gameOverWin.gif" alt="You did it!"> <button id="mainMenuWinBtn" class="main-menu-win-button">Main Menu</button>`;
     congratsTextDOM.classList.add("game-over-win");
 
     mainDOM.appendChild(congratsTextDOM);

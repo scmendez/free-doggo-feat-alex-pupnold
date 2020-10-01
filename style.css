@@ -118,7 +118,7 @@ button {
 .game-over-loss {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     border: 2px solid #f4a261;
@@ -141,21 +141,32 @@ button {
     background-color: #fff;
     color: #F02B45;
     border: 1px solid #F02B45;
-    /* transform: scale(1.1); */
+}
+
+.main-menu-loss-button {
+    background-color: #264653;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 10px;
+    border-radius: 3px;
+    transition: all 0.5s;
+}
+
+.main-menu-loss-button:hover {
+    background-color: #fff;
+    color: #264653;
+    border: 1px solid #264653;
 }
 
 /* game over win screen*/
 .game-over-win {
     position: absolute;
-    /* left: ; */
 }
 
 .game-over-win p {
     position: relative;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    /* padding-top: -150px; */
-    /* padding-bottom: 235px; */
 }
 
 .main-menu-win-button {
@@ -175,5 +186,4 @@ button {
     background-color: #fff;
     color: #264653;
     border: 1px solid #264653;
-    /* transform: scale(1.1); */
 }
