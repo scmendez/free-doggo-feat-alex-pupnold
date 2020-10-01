@@ -6,20 +6,20 @@ let elevationScore = 0;
 let treatScore = 0;
 let finalScore = 0;
 
+//difficultMode
 let easyMode = false;
 let medMode = false;
 let hardMode = false;
 
-//difficultMode
 let easyModeBtn = document.querySelector('#easyModeBtn');
 let medModeBtn = document.querySelector('#medModeBtn');
 let hardModeBtn = document.querySelector('#hardModeBtn');
 
 
 easyModeBtn.addEventListener("click", (event) => {
-easyMode = true;
-medMode = false;
-hardMode = false;
+    easyMode = true;
+    medMode = false;
+    hardMode = false;
 });
 
 medModeBtn.addEventListener("click", (event) => {
