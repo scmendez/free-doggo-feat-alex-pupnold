@@ -44,9 +44,9 @@ const drawAlexPupnold = () => {
 const moveAlexPupnold = () => {
     if (isRightArrow) {
         if (easyMode == true) {
-            alexPupnold.x += 1;
-        } else if (medMode == true) {
             alexPupnold.x += 1.5;
+        } else if (medMode == true) {
+            alexPupnold.x += 2;
         } else if (hardMode == true) {
             alexPupnold.x += 3;
         }
@@ -55,9 +55,9 @@ const moveAlexPupnold = () => {
         alexPupnoldImg.src = "images/belayedAlexRight.png";
     } else if (isLeftArrow) {
         if (easyMode == true) {
-            alexPupnold.x -= 1;
-        } else if (medMode == true) {
             alexPupnold.x -= 1.5;
+        } else if (medMode == true) {
+            alexPupnold.x -= 2;
         } else if (hardMode == true) {
             alexPupnold.x -= 3;
         }

@@ -45,21 +45,21 @@ const drawObstacle = () => {
         );
 
         if (easyMode == true) {
-            obstaclesArray[i].y += 1.25;
-        } else if (medMode == true) {
             obstaclesArray[i].y += 1.5;
+        } else if (medMode == true) {
+            obstaclesArray[i].y += 2;
         } else if (hardMode == true) {
             obstaclesArray[i].y += 3;
         }
 
-        if (obstaclesArray[i].y == 150 && theCapY < -100) {
+        if (obstaclesArray[i].y == 150 && theCapY < -75) {
             obstaclesArray.push({
                 imgElem: graniteRockImg,
                 x: theCapShape.topLeftX +
                     Math.floor(
                         (theCapShape.topRightX - theCapShape.topLeftX) * Math.random()
                     ),
-                y: -9,
+                y: -12,
                 width: graniteRockWidth,
                 height: graniteRockHeight,
             });
@@ -99,7 +99,7 @@ const drawTreat = () => {
             dogTreatsArray[i].y += 2;
         }
 
-        if (dogTreatsArray[i].y == 250 && theCapY < -100) {
+        if (dogTreatsArray[i].y == 250 && theCapY < -75) {
             dogTreatsArray.push({
                 imgElem: dogTreatImg,
                 x: theCapShape.topLeftX +
