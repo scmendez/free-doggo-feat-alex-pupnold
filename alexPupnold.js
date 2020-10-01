@@ -37,7 +37,6 @@ const drawAlexPupnold = () => {
         alexPupnold.height
     );
     if (alexPupnold.y + alexPupnold.height / 2 < theCapY) {
-        console.log('Called')
         gameOverWin();
     }
 };

@@ -91,9 +91,7 @@ const gameOverLoss = () => {
     let gameOverLossDOM = document.createElement("div");
     gameOverLossDOM.setAttribute("id", "splashScreen");
     gameOverLossDOM.innerHTML = `
-  <img src="images/sleepingHeeler.png" alt="sleeping Australian Heeler puppy" class="sleeping-heeler">
-  <div class="game-over-loss-text">
-  <img src="images/dreamCloud.png" alt="careful! you almost woke up">
+  <img src="images/gameOverImage.png" alt="careful! you almost woke up from your snoozle">
   <button id="playAgainButtonLoss" class="play-again-button-loss">Go back to sleep and try again</button>
   </div>`;
 
