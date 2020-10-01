@@ -7,8 +7,8 @@ let treatScore = 0;
 let finalScore = 0;
 
 //menuMusic
-let menuMusic = document.getElementById("menuMusic");
-menuMusic.volume = 0.1;
+// let menuMusic = document.getElementById("menuMusic");
+// menuMusic.volume = 0.1;
 
 //gameLossMusic
 let gameLossMusic = new Audio();
@@ -48,24 +48,9 @@ const startGameSetup = () => {
     gameLossMusic.currentTime = 0;
     climbingMusic.play();
 
-    canvas = document.querySelector("canvas");
-    ctx = canvas.getContext("2d");
-
-    intervalId = setInterval(() => {
-        requestAnimationFrame(startGame);
-    }, 10);
-};
-
-const gameOverLoss = () => {
-    climbingMusic.pause();
-    climbingMusic.currentTime = 0;
-    gameLossMusic.play();
-    clearInterval(intervalId);
-
     elevationScore = 0;
     treatScore = 0;
     finalScore = 0;
-    theCapY = -theCapImg.height + 500;
     alexPupnold = {
         x: 300,
         y: 405,
@@ -87,24 +72,37 @@ const gameOverLoss = () => {
         height: dogTreatWidth,
     }, ];
 
+    canvas = document.querySelector("canvas");
+    ctx = canvas.getContext("2d");
+
+    intervalId = setInterval(() => {
+        requestAnimationFrame(startGame);
+    }, 10);
+};
+
+const gameOverLoss = () => {
+    climbingMusic.pause();
+    climbingMusic.currentTime = 0;
+    gameLossMusic.play();
+    clearInterval(intervalId);
+
     mainDOM.removeChild(canvasDOM);
 
     let gameOverLossDOM = document.createElement("div");
     gameOverLossDOM.setAttribute("id", "splashScreen");
-    //gameOverLossDOM.innerHTML = `<img src="images/gameOverText.png" alt="Game Over"> <p>At least all dogs go to heaven...right?</p> <button id="playAgainButton" class="play-again-button">That was just practice, I wanna try again</button>`;
     gameOverLossDOM.innerHTML = `
   <img src="images/sleepingHeeler.png" alt="sleeping Australian Heeler puppy" class="sleeping-heeler">
   <div class="game-over-loss-text">
   <img src="images/dreamCloud.png" alt="careful! you almost woke up">
-  <button id="playAgainButton" class="play-again-button">Go back to sleep and try again</button>
+  <button id="playAgainButtonLoss" class="play-again-button-loss">Go back to sleep and try again</button>
   </div>`;
 
     gameOverLossDOM.classList.add("game-over-loss");
 
     mainDOM.appendChild(gameOverLossDOM);
 
-    let playAgainBtn = document.querySelector("#playAgainButton");
-    playAgainBtn.addEventListener("click", () => {
+    let playAgainLossBtn = document.querySelector("#playAgainButtonLoss");
+    playAgainLossBtn.addEventListener("click", () => {
         startGameSetup();
     });
 };
@@ -116,7 +114,8 @@ const gameOverWin = () => {
     clearInterval(intervalId);
 
     congratsTextDOM = document.createElement("div");
-    congratsTextDOM.innerHTML = `<img src="images/gameOverWin.gif" alt="You did it!">`;
+    congratsTextDOM.setAttribute("id", "splashScreen");
+    congratsTextDOM.innerHTML = `<img src="images/gameOverWin.gif" alt="You did it!"> <button id="playAgainButtonWin" class="play-again-button-win">Play again</button>`;
     congratsTextDOM.classList.add("game-over-win");
 
     mainDOM.appendChild(congratsTextDOM);
@@ -125,6 +124,12 @@ const gameOverWin = () => {
 
     ctx.font = "15px Arial";
     ctx.fillText("Final Score: " + Math.round(finalScore), 300, 300);
+
+    let playAgainWinBtn = document.querySelector("#playAgainButtonWin");
+    playAgainWinBtn.addEventListener("click", () => {
+        mainDOM.removeChild(canvasDOM);
+        startGameSetup();
+    });
 };
 
 
