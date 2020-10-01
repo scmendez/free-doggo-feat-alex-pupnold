@@ -6,6 +6,34 @@ let elevationScore = 0;
 let treatScore = 0;
 let finalScore = 0;
 
+let easyMode = false;
+let medMode = false;
+let hardMode = false;
+
+//difficultMode
+let easyModeBtn = document.querySelector('#easyModeBtn');
+let medModeBtn = document.querySelector('#medModeBtn');
+let hardModeBtn = document.querySelector('#hardModeBtn');
+
+
+easyModeBtn.addEventListener("click", (event) => {
+easyMode = true;
+medMode = false;
+hardMode = false;
+});
+
+medModeBtn.addEventListener("click", (event) => {
+    easyMode = false;
+    medMode = true;
+    hardMode = false;
+});
+
+hardModeBtn.addEventListener("click", (event) => {
+    easyMode = false;
+    medMode = false;
+    hardMode = true;
+});
+
 //menuMusic
 // let menuMusic = document.getElementById("menuMusic");
 // menuMusic.volume = 0.1;

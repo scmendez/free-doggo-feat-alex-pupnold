@@ -43,10 +43,25 @@ const drawAlexPupnold = () => {
 
 const moveAlexPupnold = () => {
     if (isRightArrow) {
-        alexPupnold.x += alexPupnoldXIncrement;
+        if (easyMode == true) {
+            alexPupnold.x += 1;
+        } else if (medMode == true) {
+            alexPupnold.x += 1.5;
+        } else if (hardMode == true) {
+            alexPupnold.x += 3;
+        }
+
+        //alexPupnold.x += alexPupnoldXIncrement;
         alexPupnoldImg.src = "images/belayedAlexRight.png";
     } else if (isLeftArrow) {
-        alexPupnold.x -= alexPupnoldXIncrement;
+        if (easyMode == true) {
+            alexPupnold.x -= 1;
+        } else if (medMode == true) {
+            alexPupnold.x -= 1.5;
+        } else if (hardMode == true) {
+            alexPupnold.x -= 3;
+        }
+        //alexPupnold.x -= alexPupnoldXIncrement;
         alexPupnoldImg.src = "images/belayedAlexLeft.png";
     }
 };

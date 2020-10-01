@@ -33,16 +33,16 @@ Guide Alex Pup-nold horizontally as he climbs to the top of The Captain while av
 - gameOverLoss () {}
 - gameOverWin () {}
 - startGame () {
-    drawSky();
-    drawTheCap();
-    drawAlexPupnold();
-    moveAlexPupnold();
-    checkRockBoundaries();
-    drawObstacle();
-    drawTreat();
-    checkObstacleCollision();
-    checkTreatCollision();
-}
+  drawSky();
+  drawTheCap();
+  drawAlexPupnold();
+  moveAlexPupnold();
+  checkRockBoundaries();
+  drawObstacle();
+  drawTreat();
+  checkObstacleCollision();
+  checkTreatCollision();
+  }
 
 # alexPupnold.js
 
@@ -94,7 +94,7 @@ Definition of the different states and their transition (transition functions)
 
 ### Trello
 
-[Link url](https://trello.com)
+[Link url](https://trello.com/b/0cR6zvuW/free-doggo)
 
 ### Git
 

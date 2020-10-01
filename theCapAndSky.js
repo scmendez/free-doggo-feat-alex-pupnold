@@ -65,8 +65,8 @@ const drawTheCap = () => {
     theCapShape.topLeftX += 0.01;
     theCapShape.topRightX -= 0.01;
     theCapShape.bottomRightX -= 0.01;
-    // TODO: CHANGED
-    theCapY += 5.5;
+
+    theCapY += 0.5;
     elevationScore += 0.492;
 
     if (theCapShape.topLeftX == 325 && theCapShape.topRightX == 375) {
