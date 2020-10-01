@@ -45,14 +45,12 @@ const drawObstacle = () => {
         );
 
         if (easyMode == true) {
-            obstaclesArray[i].y += 1;
+            obstaclesArray[i].y += 1.25;
         } else if (medMode == true) {
             obstaclesArray[i].y += 1.5;
         } else if (hardMode == true) {
             obstaclesArray[i].y += 3;
         }
-
-        //obstaclesArray[i].y += 1.5;
 
         if (obstaclesArray[i].y == 150 && theCapY < -100) {
             obstaclesArray.push({
@@ -100,7 +98,6 @@ const drawTreat = () => {
         } else if (hardMode == true) {
             dogTreatsArray[i].y += 2;
         }
-        //dogTreatsArray[i].y++;
 
         if (dogTreatsArray[i].y == 250 && theCapY < -100) {
             dogTreatsArray.push({

@@ -105,4 +105,4 @@ URls for the project repo and deploy
 ### Slides
 
 URls for the project presentation (slides)
-[Link Slides.com](http://slides.com)
+[Link Slides.com](https://docs.google.com/presentation/d/1_v-WozVmnlEtEAikfo37Lrs8cO4jBM5c5M7yBAOwqHI/edit?usp=sharing)
