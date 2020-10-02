@@ -1,4 +1,4 @@
-//global variables - drawAlexPupnold
+// //global variables - drawAlexPupnold
 let alexPupnoldImg = new Image();
 alexPupnoldImg.src = "images/belayedAlexRight.png";
 let alexPupnold = {
@@ -9,7 +9,7 @@ let alexPupnold = {
 };
 
 //global variables - moveAlexPupnold
-let alexPupnoldXIncrement = 1.5;
+let alexPupnoldXIncrement;
 let isRightArrow = false;
 let isLeftArrow = false;
 
@@ -51,7 +51,6 @@ const moveAlexPupnold = () => {
             alexPupnold.x += 3;
         }
 
-        //alexPupnold.x += alexPupnoldXIncrement;
         alexPupnoldImg.src = "images/belayedAlexRight.png";
     } else if (isLeftArrow) {
         if (easyMode == true) {
@@ -61,7 +60,7 @@ const moveAlexPupnold = () => {
         } else if (hardMode == true) {
             alexPupnold.x -= 3;
         }
-        //alexPupnold.x -= alexPupnoldXIncrement;
+
         alexPupnoldImg.src = "images/belayedAlexLeft.png";
     }
 };

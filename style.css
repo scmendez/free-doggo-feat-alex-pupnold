@@ -13,7 +13,7 @@
     align-items: center;
     border: 2px solid #f4a261;
     background-color: #fff1e6;
-    width: 100%;
+    width: 700px;
     height: 500px;
 }
 
@@ -118,8 +118,7 @@ button {
 .game-over-loss {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: flex-start;
 
     border: 2px solid #f4a261;
     width: 700px;
@@ -134,7 +133,6 @@ button {
     padding: 10px;
     border-radius: 3px;
     transition: all 0.5s;
-    margin-bottom: 150px;
 }
 
 .play-again-button-loss:hover {
@@ -150,6 +148,7 @@ button {
     padding: 10px;
     border-radius: 3px;
     transition: all 0.5s;
+    margin-top: 15px;
 }
 
 .main-menu-loss-button:hover {

@@ -34,10 +34,6 @@ hardModeBtn.addEventListener("click", (event) => {
     hardMode = true;
 });
 
-//menuMusic
-// let menuMusic = document.getElementById("menuMusic");
-// menuMusic.volume = 0.1;
-
 //gameLossMusic
 let gameLossMusic = new Audio();
 gameLossMusic.src = "sounds/gameLossMusic.mp3";
@@ -57,19 +53,17 @@ startBtn.addEventListener("click", () => {
     startGameSetup();
 });
 
-
-
 const startGameSetup = () => {
     mainDOM = document.querySelector("#mainContainer");
 
     let splashScreenDOM = document.querySelector("#splashScreen");
 
     mainDOM.removeChild(splashScreenDOM);
-
     canvasDOM = document.createElement("div");
     canvasDOM.innerHTML = `<canvas width = "700" height = "500"> </canvas>`;
 
     mainDOM.appendChild(canvasDOM);
+    
     theCapY = -theCapImg.height + 500;
     skyY = -skyBackgroundImg.height + 500;
     fallingMusic.pause();
@@ -116,53 +110,6 @@ const startGameSetup = () => {
         requestAnimationFrame(startGame);
     }, 10);
 };
-
-// const backToMenu = () => {
-//     location.reload()
-//     // mainDOM.removeChild(canvasDOM);
-//     // mainDOM.removeChild(congratsTextDOM);
-//     // reSplashScreenDOM = document.createElement("div");
-//     // reSplashScreenDOM.setAttribute("id", "splashScreen");
-//     // reSplashScreenDOM.innerHTML = `<div class="game-logo">
-//     //     <img src="images/gameLogo.png" alt="free doggo logo" />
-//     //     <!-- <audio autoplay loop>
-//     //       <source src="sounds/menuMusic.mp3" id="menuMusic">
-//     //     </audio> -->
-//     //   </div>
-//     //   <div class="start-game-info">
-//     //     <section class="start-game-info-goal">
-//     //       <img src="images/goalTitle.png" alt="Goal:" />
-//     //       <br />
-//     //       Help Alex Pup-nold achieve his dream of reaching the top of The Cap without falling off the sides or colliding
-//     //       with falling rocks. Catch the falling dog treats and reach the dog
-//     //       bowl at the top for bonus points!
-//     //     </section>
-//     //     <section class="start-game-info-controls">
-//     //       <img src="images/controlsTitle.png" alt="Controls:" />
-//     //       <ul>
-//     //         <li>Left Arrow Key - move left</li>
-//     //         <li>Right Arrow Key - move right</li>
-//     //       </ul>
-//     //     </section>
-//     //     <section class="start-game-info-buttons">
-//     //       <img src="images/difficultyTitle.png" alt="Difficulty:" />
-//     //       <section class="start-game-info-difficulty-levels">
-//     //         <button id="easyModeBtn">Easy</button>
-//     //         <button id="medModeBtn">Medium</button>
-//     //         <button id="hardModeBtn">Hard</button>
-//     //       </section>
-//     //       <button id="startAgainButton" class="start-button">Start Game</button>
-//     //     </section>
-//     //   </div>`;
-
-//     // reSplashScreenDOM.classList.add('splash-screen')
-//     // mainDOM.appendChild(reSplashScreenDOM);
-
-//     // startAgainBtn = document.querySelector("#startAgainButton");
-//     // startAgainBtn.addEventListener("click", () => {
-//     //     startGameSetup();
-//     // });
-// }
 
 const gameOverLoss = () => {
     climbingMusic.pause();
