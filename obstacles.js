@@ -59,6 +59,7 @@ const drawObstacle = () => {
                     Math.floor(
                         (theCapShape.topRightX - theCapShape.topLeftX) * Math.random()
                     ),
+                    //y of -12 so that obstaclesArray[i].y increments reach 150
                 y: -12,
                 width: graniteRockWidth,
                 height: graniteRockHeight,

@@ -48,6 +48,7 @@ gameWinMusic.volume = 0.2;
 let mainDOM;
 let canvasDOM;
 
+//main menu Start Game button
 let startBtn = document.querySelector("#startButton");
 startBtn.addEventListener("click", () => {
     startGameSetup();
@@ -64,6 +65,7 @@ const startGameSetup = () => {
 
     mainDOM.appendChild(canvasDOM);
     
+    //setting all global variables to start
     theCapY = -theCapImg.height + 500;
     skyY = -skyBackgroundImg.height + 500;
     fallingMusic.pause();
@@ -71,7 +73,6 @@ const startGameSetup = () => {
     gameLossMusic.pause();
     gameLossMusic.currentTime = 0;
     climbingMusic.play();
-
 
     theCapShape = {
         bottomLeftX: 100,
@@ -103,6 +104,7 @@ const startGameSetup = () => {
         height: dogTreatWidth,
     }, ];
 
+    //setting up canvas and ctx
     canvas = document.querySelector("canvas");
     ctx = canvas.getContext("2d");
 
@@ -112,9 +114,12 @@ const startGameSetup = () => {
 };
 
 const gameOverLoss = () => {
+    //stopping climbingMusic and resetting it
     climbingMusic.pause();
     climbingMusic.currentTime = 0;
+
     gameLossMusic.play();
+    //stopping the game
     clearInterval(intervalId);
 
     mainDOM.removeChild(canvasDOM);
@@ -144,12 +149,16 @@ const gameOverLoss = () => {
 };
 
 const gameOverWin = () => {
+    //stopping climbingMusic and resetting it
     climbingMusic.pause();
     climbingMusic.currentTime = 0;
+
     gameWinMusic.play();
+    //stopping the game
     clearInterval(intervalId);
 
     congratsTextDOM = document.createElement("div");
+    //setting the win screen with id="splashScreen" in order to reuse the startGameSetup function
     congratsTextDOM.setAttribute("id", "splashScreen");
     congratsTextDOM.innerHTML = `<img src="images/gameOverWin.gif" alt="You did it!"> <button id="mainMenuWinBtn" class="main-menu-win-button">Main Menu</button>`;
     congratsTextDOM.classList.add("game-over-win");

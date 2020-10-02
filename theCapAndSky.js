@@ -43,7 +43,7 @@ const drawSky = () => {
     skyY += 0.5;
 
     ctx.font = "15px Arial";
-    ctx.fillText("Elevation: " + Math.round(elevationScore) + "m", 20, 30);
+    ctx.fillText("Elevation: " + Math.floor(elevationScore) + "m", 20, 30);
     ctx.font = "15px Arial";
     ctx.fillText("Treat Bonus: " + Math.round(treatScore), 20, 60);
 };
@@ -67,8 +67,9 @@ const drawTheCap = () => {
     theCapShape.bottomRightX -= 0.01;
 
     theCapY += 0.5;
-    elevationScore += 0.492;
+    elevationScore += 0.49216;
 
+    //to create top of The Cap
     if (theCapShape.topLeftX == 325 && theCapShape.topRightX == 375) {
         ctx.closePath();
     }
